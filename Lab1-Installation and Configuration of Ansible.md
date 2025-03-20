@@ -153,7 +153,7 @@ Copy paste the below code & Save the file using "ESCAPE + :wq!"
       register: ec2var
       loop:
           - managed-node1
-          - managed-nodes2
+          - managed-node2
 
     - name: Make ansible directory
       file:
