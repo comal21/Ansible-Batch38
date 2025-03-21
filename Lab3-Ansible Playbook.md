@@ -96,12 +96,14 @@ vi uninstall-httpd-pb.yml
 ```
 Retain only first task. Replace 'state: latest' with 'state: absent'
 
-Check if the playbook is ok
-```
-ansible-playbook uninstall-httpd-pb.yml --check
-```
-Now run the playbook and check in the browser if the web page exists.
+Now run the playbook 
 ```
 ansible-playbook uninstall-httpd-pb.yml
 ```
-Check the browser with the corresponding IPv4 DNS name and ensure webpage is removed.
+```
+curl <private_ip of node1> 
+```
+
+```
+curl <private_ip of node2>
+```
