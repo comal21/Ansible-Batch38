@@ -36,20 +36,6 @@ vi implement-vars.yml
         dest: '{{ destination }}'
 ```
 
-Create a file named `index.html` with the following content:
-
-```
-vi index.html
-```
-```html
-<html>
-  <body>
-  <h1>Welcome to CloudThat</h1>
-  <h1>Welcome to variables</h1>
-  </body>
-</html>
-```
-
 ```sh
 ansible-playbook implement-vars.yml
 ```
