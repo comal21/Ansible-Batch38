@@ -6,6 +6,7 @@ cd ~/ansible-labs
 ```
 vi blklab.yml
 ```
+```
 ---
 - hosts: all
   become: yes
