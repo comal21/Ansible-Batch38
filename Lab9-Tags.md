@@ -10,72 +10,46 @@ vi tags.yaml
 ```
 ```
 ---
-- name: Task Demonstration
-  hosts: localhost
+```
+vi tagslabs.yml
+```
+```
+---
+- hosts: all
   become: yes
   tasks:
-    - name: Check if target directory exists
-      stat:
-        path: /tmp/target_directory
-      register: target_dir
-      tags: always
-
-    - name: Create directory if not present
+    - name: Create a directory
       file:
-        path: /tmp/target_directory
+        path: /tmp/demo_dir
         state: directory
         mode: '0755'
-      when: not target_dir.stat.exists
-      tags: create_directory
+      tags:
+        - create_dir
 
-    - name: Copy sample file if directory exists
+    - name: Create a file
       copy:
-        content: "This is a sample file content."
-        dest: /tmp/target_directory/sample_file.txt
-      when: target_dir.stat.exists
-      tags: copy_file
+        content: "This is a demo file"
+        dest: /tmp/demo_dir/demo_file.txt
+      tags:
+        - create_file
 
-    - name: Check if user 'exampleuser' exists
-      command: id -u exampleuser
-      register: user_exists
-      changed_when: false
-      failed_when: user_exists.rc not in [0, 1]  # Allows non-zero return without failing
-      tags: always  # Ensures this task runs even when specific tags are used
-      tags: always
-
-    - name: Create user 'exampleuser' if not exists
-      user:
-        name: exampleuser
+    - name: Ensure a package is installed (curl)
+      yum:
+        name: curl
         state: present
-      when: user_exists.rc != 0
-      tags: create_user
-```
+      tags:
+        - install_curl
 
-Run Task with create_directory Tag
 ```
-ansible-playbook tags.yaml --tags "create_directory"
+Notice that only the tasks associated with the mentioned tags are running
 ```
-Run Task with copy_file Tag
+ansible-playbook -t "create_dir" tagslabs.yml
 ```
-ansible-playbook tags.yaml --tags "copy_file"
 ```
-Run Task with create_user Tag
+ansible-playbook -t "create_file" tagslabs.yml
 ```
-ansible-playbook tags.yaml --tags "create_user"
 ```
-Run Multiple Tags Together
-You can run multiple tasks by combining tags in a comma-separated list.
-```
-ansible-playbook tags.yaml --tags "create_directory,copy_file"
-```
-
-You can also skip specific tasks by using the --skip-tags option. This is useful if you want to run all tasks except certain ones.
-```
-ansible-playbook tags.yaml --skip-tags "check_user"
-```
-Skip tasks
-```
-ansible-playbook tags.yaml --start-at-task "Check if user 'exampleuser' exists"
+ansible-playbook --skip-tags "install_curl" tagslabs.yml
 ```
 
 List all the tags
