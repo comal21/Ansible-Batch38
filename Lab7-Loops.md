@@ -5,6 +5,8 @@ cd ~/ansible-labs
 ```
 ```
 vi looplab.yml
+```
+```
 ---
 - hosts: all
   become: yes
