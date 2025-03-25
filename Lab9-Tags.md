@@ -10,11 +10,6 @@ vi tags.yaml
 ```
 ```
 ---
-```
-vi tagslabs.yml
-```
-```
----
 - hosts: all
   become: yes
   tasks:
@@ -43,13 +38,13 @@ vi tagslabs.yml
 ```
 Notice that only the tasks associated with the mentioned tags are running
 ```
-ansible-playbook -t "create_dir" tagslabs.yml
+ansible-playbook -t "create_dir" tags.yaml
 ```
 ```
-ansible-playbook -t "create_file" tagslabs.yml
+ansible-playbook -t "create_file" tags.yaml
 ```
 ```
-ansible-playbook --skip-tags "install_curl" tagslabs.yml
+ansible-playbook --skip-tags "install_curl" tags.yaml
 ```
 
 List all the tags
