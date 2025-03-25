@@ -28,7 +28,7 @@ vi blklab.yml
             path: /tmp/tempfile
             state: absent
   vars:
-    web_package1: httpd  
+    web_package1: http
     web_package2: nginx
 ```
 save the file using ESCAPE + :wq!
